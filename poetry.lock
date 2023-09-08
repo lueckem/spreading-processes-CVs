@@ -63,6 +63,25 @@ files = [
 colorama = {version = "*", markers = "platform_system == \"Windows\""}
 
 [[package]]
+name = "cntm"
+version = "0.1.0"
+description = ""
+category = "main"
+optional = false
+python-versions = ">=3.9,<3.12"
+files = []
+develop = true
+
+[package.dependencies]
+networkx = ">=2.8.4"
+numba = ">=0.55"
+numpy = ">=1.21"
+
+[package.source]
+type = "directory"
+url = "../cntm"
+
+[[package]]
 name = "cnvm"
 version = "0.2.0"
 description = "Continuous-time Noisy Voter Model (CNVM) of social dynamics."
@@ -1225,4 +1244,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<3.12"
-content-hash = "9cf1a8f05db16c67b22fc3d0d1c9bd8c0c3dde1bf7a69cda4e927368ecdae90d"
+content-hash = "75e3fd2432b267defd05df6848b4e9f00bdf86eadf6d33ca524a371ae5830c35"
