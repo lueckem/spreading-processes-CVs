@@ -24,7 +24,6 @@ def plot3d():
     ax.set_zticklabels([])
 
     ax.view_init(14, -73, 0)
-    plt.show()
     plt.tight_layout()
     plt.savefig("plots/plot_tm.pdf")
 

@@ -14,7 +14,7 @@ def run_method():
     start = time.time()
 
     """ set up the network and parameters of the CNVM """
-    setup_params()  # this creates the data file params.pkl
+    # setup_params()  # this creates the data file params.pkl
 
     """ sample the anchor points and run voter model simulations starting at the anchor points """
     sample_anchors_and_cnvm()  # this creates the data file x_data.npz

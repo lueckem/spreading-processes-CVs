@@ -48,11 +48,11 @@ def sample_anchors_and_cnvm():
     params = load_params("data/params.pkl")
     num_samples = 100
     num_anchor_points = 1000
-    lag_time = 2
+    lag_time = 10
 
     print("Sampling anchor points...")
     x_anchor = ct.create_anchor_points_local_clusters(
-        params.network, 2, num_anchor_points, 3
+        params.network, 2, num_anchor_points, 10
     )
 
     print("Simulating threshold model...")
@@ -83,7 +83,7 @@ def linear_regression():
     params = load_params("data/params.pkl")
     network = params.network
 
-    pen_vals = np.logspace(3, -2, 6)
+    pen_vals = np.logspace(2, -1, 4)
     alphas, colors = optimize_fused_lasso(x, xi, network, pen_vals)
 
     np.savez("data/cv_optim.npz", alphas=alphas, xi_fit=colors)
