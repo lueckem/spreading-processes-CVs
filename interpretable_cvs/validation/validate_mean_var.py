@@ -1,7 +1,6 @@
 import numpy as np
-from cnvm.collective_variables import CollectiveVariable
-import cnvm.parameters
-import cnvm.utils
+from sponet.collective_variables import CollectiveVariable
+from sponet import CNVMParameters, sample_many_runs
 from matplotlib import pyplot as plt
 import matplotlib.ticker as mtick
 
@@ -48,7 +47,7 @@ class MinorSymLogLocator(mtick.Locator):
 
 def calc_mean_and_variance(
     x_init: np.ndarray,
-    params: cnvm.parameters.Parameters,
+    params: CNVMParameters,
     lag_time: float,
     cv: CollectiveVariable,
     num_samples: int = 1000,
@@ -70,7 +69,7 @@ def calc_mean_and_variance(
         2. variances, shape=(num_initial_states, dim_cv)
 
     """
-    t, x_end = cnvm.utils.sample_many_runs(
+    t, x_end = sample_many_runs(
         params,
         x_init,
         lag_time,
@@ -129,7 +128,7 @@ def plot_mean_and_var(means, variances, other_idx=None):
 
 def calc_mean_and_std_traj(
     x_init: np.ndarray,
-    params: cnvm.parameters.Parameters,
+    params: CNVMParameters,
     t_max: float,
     num_steps: int,
     cv: CollectiveVariable,
@@ -154,7 +153,7 @@ def calc_mean_and_std_traj(
         2. variances, shape=(num_initial_states, num_steps, dim_cv)
 
     """
-    t, x_traj = cnvm.utils.sample_many_runs(
+    t, x_traj = sample_many_runs(
         params,
         x_init,
         t_max,

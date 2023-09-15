@@ -1,13 +1,12 @@
 import numpy as np
-from cntm import Parameters
-from cntm.utils import sample_many_runs
+from sponet import CNTMParameters, sample_many_runs
 
 
 def sample_cntm(
     x_anchor: np.ndarray,
     num_samples: int,
     lag_time: float,
-    params: Parameters,
+    params: CNTMParameters,
     n_jobs: int = -1,
 ):
     """

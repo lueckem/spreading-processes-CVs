@@ -1,7 +1,7 @@
 import networkx as nx
 import numba
 import numpy as np
-from cnvm.parameters import load_params
+from sponet import load_params
 import pickle
 from matplotlib import pyplot as plt
 

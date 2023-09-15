@@ -1,10 +1,10 @@
-import cnvm.collective_variables as cv
+import sponet.collective_variables as cv
 import dash
 import networkx as nx
 import numpy as np
 import plotly.express as px
 import plotly.graph_objects as go
-from cnvm.parameters import load_params
+from sponet import load_params
 from dash import Dash, html, dcc
 from dash.dependencies import Input, Output
 

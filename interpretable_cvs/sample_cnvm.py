@@ -1,13 +1,12 @@
 import numpy as np
-from cnvm import Parameters
-from cnvm.utils import sample_many_runs
+from sponet import CNVMParameters, sample_many_runs
 
 
 def sample_cnvm(
     x_anchor: np.ndarray,
     num_samples: int,
     lag_time: float,
-    params: Parameters,
+    params: CNVMParameters,
     n_jobs: int = -1,
 ):
     """

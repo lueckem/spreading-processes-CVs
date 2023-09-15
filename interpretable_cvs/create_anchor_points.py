@@ -1,8 +1,7 @@
 import networkx as nx
 import numpy as np
 from scipy.stats import dirichlet
-import cnvm.utils
-import cnvm
+from sponet import CNVMParameters, sample_many_runs
 
 
 def create_random_anchor_points(
@@ -229,9 +228,9 @@ def create_anchor_points_local_clusters(
 
 
 def integrate_anchor_points(
-    x_anchor: np.ndarray, params: cnvm.Parameters, tau: float
+    x_anchor: np.ndarray, params: CNVMParameters, tau: float
 ) -> np.ndarray:
-    _, x = cnvm.utils.sample_many_runs(params, x_anchor, tau, 2, 1, n_jobs=-1)
+    _, x = sample_many_runs(params, x_anchor, tau, 2, 1, n_jobs=-1)
     return x[:, 0, -1, :]
 
 
