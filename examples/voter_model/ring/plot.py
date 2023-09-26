@@ -3,7 +3,7 @@ from matplotlib import pyplot as plt
 from matplotlib.layout_engine import TightLayoutEngine
 import numpy as np
 import scipy
-from cnvm.parameters import load_params
+from sponet import load_params
 
 
 def fit_sin(tt, yy):

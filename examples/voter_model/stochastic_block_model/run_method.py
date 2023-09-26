@@ -1,6 +1,6 @@
 import pickle
-from cnvm import Parameters, save_params, load_params
-import cnvm.network_generator as ng
+from sponet import CNVMParameters, save_params, load_params
+import sponet.network_generator as ng
 import numpy as np
 import networkx as nx
 
@@ -32,7 +32,7 @@ def setup_params():
     network = new_network
     # print(network.nodes)
 
-    params = Parameters(
+    params = CNVMParameters(
         num_opinions=num_opinions,
         num_agents=num_agents,
         network=network,

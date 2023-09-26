@@ -1,5 +1,5 @@
 import pickle
-from cnvm import Parameters, save_params, load_params
+from sponet import CNVMParameters, save_params, load_params
 import numpy as np
 import networkx as nx
 
@@ -29,7 +29,7 @@ def setup_params():
     new_network.add_edges_from(network.edges(data=True))
     network = new_network
 
-    params = Parameters(
+    params = CNVMParameters(
         num_opinions=num_opinions,
         num_agents=num_agents,
         network=network,

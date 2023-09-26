@@ -4,7 +4,7 @@ from matplotlib.layout_engine import TightLayoutEngine
 from matplotlib.transforms import Bbox
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import numpy as np
-from cnvm.parameters import load_params
+from sponet import load_params
 
 
 def plot_tm():

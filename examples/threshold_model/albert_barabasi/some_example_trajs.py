@@ -1,9 +1,8 @@
 import pickle
 
 import matplotlib.pyplot as plt
-from cntm import Parameters, save_params, load_params
-from cntm.utils import sample_many_runs
-from cnvm.collective_variables import OpinionShares
+from sponet import Parameters, save_params, load_params, sample_many_runs
+from sponet.collective_variables import OpinionShares
 import numpy as np
 import networkx as nx
 

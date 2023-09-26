@@ -4,7 +4,7 @@ from matplotlib.transforms import Bbox
 from matplotlib.layout_engine import TightLayoutEngine
 import matplotlib
 import numpy as np
-from cnvm.parameters import load_params
+from sponet import load_params
 
 
 def plot3d():

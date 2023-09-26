@@ -4,8 +4,7 @@ from interpretable_cvs.validation import (
     mmd_from_trajs,
     plot_validation_mmd,
 )
-from cnvm.parameters import load_params
-from cnvm.utils import sample_many_runs
+from sponet import load_params, sample_many_runs
 import pickle
 import numpy as np
 from matplotlib import pyplot as plt

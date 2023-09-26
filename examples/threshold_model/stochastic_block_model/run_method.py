@@ -1,6 +1,6 @@
 import pickle
-from cntm import Parameters, save_params, load_params
-from cnvm import network_generator as ng
+from sponet import CNTMParameters, save_params, load_params
+from sponet import network_generator as ng
 import numpy as np
 import networkx as nx
 
@@ -33,7 +33,7 @@ def setup_params():
     network = new_network
     # print(network.nodes)
 
-    params = Parameters(
+    params = CNTMParameters(
         network=network,
         r=1,
         r_tilde=0.1,

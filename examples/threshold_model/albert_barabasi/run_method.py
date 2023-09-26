@@ -1,8 +1,8 @@
 import pickle
-from cntm import Parameters, save_params, load_params
+from sponet import CNTMParameters, save_params, load_params
 import numpy as np
 import networkx as nx
-from cnvm import network_generator as ng
+from sponet import network_generator as ng
 
 from interpretable_cvs import (
     TransitionManifold,
@@ -30,7 +30,7 @@ def setup_params():
     new_network.add_edges_from(network.edges(data=True))
     network = new_network
 
-    params = Parameters(
+    params = CNTMParameters(
         network=network,
         r=1,
         r_tilde=0.1,
