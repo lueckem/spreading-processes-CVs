@@ -1,5 +1,5 @@
 import numpy as np
-from sponet import CNVMParameters, sample_many_runs
+from sponet import Parameters, sample_many_runs
 from matplotlib import pyplot as plt
 
 
@@ -21,7 +21,7 @@ def plot_c_rand_func(t: np.ndarray, c: np.ndarray):
 
 def validate_rand_func(
     num_random_functions: int,
-    params: CNVMParameters,
+    params: Parameters,
     x_init: np.ndarray,
     t_max: float,
     num_timesteps: int,

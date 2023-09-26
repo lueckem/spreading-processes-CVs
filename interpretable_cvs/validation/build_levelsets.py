@@ -1,8 +1,6 @@
 import networkx as nx
 import numba
 import numpy as np
-from sponet import load_params
-import pickle
 from matplotlib import pyplot as plt
 
 
@@ -275,32 +273,3 @@ def plot_x_levelset(
             axs[j].set_ylabel(f"$x^{j + 1}$", rotation=0, labelpad=10)
 
     return fig
-
-
-def main_old():
-    params = load_params("results/params.pkl")
-    partition = np.load("results/partition.npy")
-    degrees = np.array([d for _, d in params.network.degree()])
-    with open("results/cv.pkl", "rb") as file:
-        cv = pickle.load(file)
-    num_communities = int(np.max(partition) + 1)
-
-    # shares = np.array([0.5, 0.1, 0.9])
-    # shares = np.random.random(num_communities) * 0.33
-    shares = np.ones(num_communities) * 0.8
-    x = create_x_from_levelset(10, partition, degrees, shares)
-
-    # create one with different levelset
-    # shares = np.array([0.5, 0.6, 0.4])
-
-    thresh = int(num_communities * 0.8) - 4
-    shares = np.concatenate(
-        (np.ones(thresh), [0.65], np.zeros(num_communities - thresh))
-    )
-    # np.random.shuffle(shares)
-    y = create_x_from_levelset(1, partition, degrees, shares)
-
-    x = np.concatenate((x, y))
-    x[[1, -1]] = x[[-1, 1]]
-    print(cv(x))
-    np.save("results/x_levelset.npy", x)
