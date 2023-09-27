@@ -48,7 +48,7 @@ def sample_anchors_and_cnvm():
     params = load_params("data/params.pkl")
     num_samples = 100
     num_anchor_points = 1000
-    lag_time = 10
+    lag_time = 0.5
 
     print("Sampling anchor points...")
     x_anchor = ct.create_anchor_points_local_clusters(

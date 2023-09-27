@@ -21,8 +21,8 @@ def build_level_sets():
 
     communities = nx.community.greedy_modularity_communities(params.network)
 
-    share_cluster1 = 0.1
-    share_cluster2 = 0.5
+    share_cluster1 = 0.2
+    share_cluster2 = 0.6
 
     nodes_cluster1 = list(communities[0])
     nodes_cluster2 = list(communities[1])
@@ -53,7 +53,7 @@ def build_level_sets():
 
 def validate_mmd():
     print("Validating...")
-    t_max = 200
+    t_max = 30
     num_samples = 1000
     num_timesteps = 100
 
@@ -107,3 +107,23 @@ def plot_level_set():
     fig = plot_x_levelset(x, network)
     fig.tight_layout()
     fig.savefig("plots/level_set.pdf")
+
+
+def plot_trajs():
+    from sponet.collective_variables import OpinionShares
+
+    cv = OpinionShares(2, normalize=True)
+    data = np.load("data/data_validate_full.npz")
+    x_trajs = data["c"]
+    t = data["t"]
+
+    fig, ax = plt.subplots()
+    symbols = ["k-", "g--", "b-."]
+    for _ in range(100):
+        idx = np.random.randint(x_trajs.shape[1])
+        for i in range(x_trajs.shape[0]):
+            c = cv(x_trajs[i, idx, :, :])
+            ax.plot(t, c[:, 0], symbols[i])
+
+    plt.show()
+
