@@ -1,9 +1,5 @@
-import networkx as nx
 from matplotlib import pyplot as plt
-from matplotlib.transforms import Bbox
-from matplotlib.layout_engine import TightLayoutEngine
 import numpy as np
-from sponet import load_params
 
 
 def plot3d():
@@ -23,6 +19,6 @@ def plot3d():
     ax.set_zticklabels([])
 
     ax.view_init(14, -47, 0)
-    plt.show()
     plt.tight_layout()
     plt.savefig("plots/plot_tm.pdf")
+    # plt.show()

@@ -5,8 +5,8 @@ import time
 
 
 def main():
-    # run_method()  # run the method, takes ~15 minutes on 16-core CPU
-    # plot()  # plot results
+    run_method()  # run the method, takes ~15 minutes on 16-core CPU
+    plot()  # plot results
     validate()  # run and plot validation
 
 
@@ -14,13 +14,13 @@ def run_method():
     start = time.time()
 
     """ set up the network and parameters of the CNVM """
-    # setup_params()  # this creates the data file params.pkl
+    setup_params()  # this creates the data file params.pkl
 
     """ sample the anchor points and run voter model simulations starting at the anchor points """
-    # sample_anchors_and_cnvm()  # this creates the data file x_data.npz
+    sample_anchors_and_cnvm()  # this creates the data file x_data.npz
 
     """ approximate the transition manifold with a kernel-based algorithm """
-    # approximate_tm()  # this creates the data file xi.npz
+    approximate_tm()  # this creates the data file xi.npz
 
     """ apply linear regression """
     linear_regression()  # this creates the data file cv_optim.npz
@@ -31,7 +31,6 @@ def run_method():
 
 def plot():
     plot3d()  # plot of transition manifold, creates file plot_tm
-    # plot_cv()  # plot of optimal cv, creates file plot_cv
 
 
 def validate():
