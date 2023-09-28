@@ -124,12 +124,12 @@ def create_anchor_points_degree_weighted(
 
 
 def create_anchor_points_local_clusters(
-    network: nx.Graph, num_opinions: int, num_anchor_points: int, max_num_seeds: int = 1
+    network: nx.Graph, num_opinions: int, num_anchor_points: int, max_num_seeds: int = 1, min_num_seeds: int = 1
 ) -> np.ndarray:
     """
     Create anchor points by the following procedure:
     1) Pick uniformly random opinion counts
-    2) Pick num_seeds random seeds on the graph for each opinion
+    2) Pick num_seeds random seeds on the graph for each opinion (uniformly between min_num_seeds and max_num_seeds)
     3) Propagate the opinions outward from each seed to neighboring nodes until the counts are reached
 
     Parameters
@@ -138,7 +138,7 @@ def create_anchor_points_local_clusters(
     num_opinions : int
     num_anchor_points : int
     max_num_seeds : int
-        The number of initial seeds is uniformly drawn from {1,...,max_num_seeds} for each sample.
+    min_num_seeds : int
 
     Returns
     -------
@@ -157,7 +157,7 @@ def create_anchor_points_local_clusters(
         counts = np.zeros(num_opinions)  # keep track of current counts for each opinion
 
         # pick initial seeds
-        num_seeds = int(np.random.randint(1, max_num_seeds + 1))
+        num_seeds = int(np.random.randint(min_num_seeds, max_num_seeds + 1))
         seeds = np.random.choice(
             num_agents, size=num_seeds * num_opinions, replace=False
         )
