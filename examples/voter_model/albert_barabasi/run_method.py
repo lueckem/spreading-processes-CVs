@@ -103,6 +103,6 @@ def linear_regression():
 
     np.savez("data/cv_optim_degree_weighted.npz", alphas=alphas, xi_fit=colors)
 
-    xi_cv = build_cv_from_alpha(alphas, params.num_opinions)
+    xi_cv = build_cv_from_alpha(alphas, params.num_opinions, weights=weights)
     with open("data/cv_degree_weighted.pkl", "wb") as file:
         pickle.dump(xi_cv, file)
