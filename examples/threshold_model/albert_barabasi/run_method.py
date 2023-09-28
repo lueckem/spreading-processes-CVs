@@ -14,7 +14,6 @@ import interpretable_cvs as ct
 
 
 def setup_params():
-    num_opinions = 2
     num_agents = 500
 
     print(f"Constructing Albert-Barabasi model with {num_agents} nodes...")
@@ -41,7 +40,7 @@ def setup_params():
     save_params("data/params.pkl", params)
 
 
-def sample_anchors_and_cnvm():
+def sample_anchors_and_cntm():
     params = load_params("data/params.pkl")
     num_samples = 100
     num_anchor_points = 1000
@@ -73,7 +72,7 @@ def approximate_tm():
 
 
 def linear_regression():
-    num_coordinates = 3
+    num_coordinates = 1
     xi = np.load("data/xi.npy")
     xi = xi[:, :num_coordinates]
     x = np.load("data/x_data.npz")["x_anchor"]
@@ -100,6 +99,6 @@ def linear_regression():
 
     np.savez("data/cv_optim_degree_weighted.npz", alphas=alphas, xi_fit=colors)
 
-    xi_cv = build_cv_from_alpha(alphas, 2)
+    xi_cv = build_cv_from_alpha(alphas, 2, weights=weights)
     with open("data/cv_degree_weighted.pkl", "wb") as file:
         pickle.dump(xi_cv, file)

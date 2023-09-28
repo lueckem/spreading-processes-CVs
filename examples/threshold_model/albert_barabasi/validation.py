@@ -18,7 +18,7 @@ def build_level_sets():
     for c in cv.collective_variables:
         c.normalize = False
 
-    share_1 = 0.1
+    share_1 = 0.2
     degrees = np.array([d for _, d in params.network.degree()])
     idx_sorted_ascending = np.argsort(degrees)
     x = np.zeros((2, params.num_agents), dtype=int)
@@ -40,8 +40,8 @@ def build_level_sets():
 
 def validate_mmd():
     print("Validating...")
-    t_max = 200
-    num_samples = 5000
+    t_max = 30
+    num_samples = 1000
     num_timesteps = 100
 
     params = load_params("data/params.pkl")
