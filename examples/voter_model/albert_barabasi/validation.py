@@ -41,7 +41,7 @@ def build_level_sets():
 def validate_mmd():
     print("Validating...")
     t_max = 200
-    num_samples = 5000
+    num_samples = 1000
     num_timesteps = 100
 
     params = load_params("data/params.pkl")
