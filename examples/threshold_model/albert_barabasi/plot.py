@@ -31,7 +31,7 @@ def plot_tm():
     ax.set_zticklabels([])
 
     custom_lim = (np.min(xi[:, 0]), np.max(xi[:, 0]))
-    custom_lim2 = (0.5 * np.min(xi[:, 0]), 0.5 * np.max(xi[:, 0]))
+    custom_lim2 = (0.9 * np.min(xi[:, 0]), 0.9 * np.max(xi[:, 0]))
     plt.setp(ax, xlim=custom_lim, ylim=custom_lim2, zlim=custom_lim2)
 
     ax.get_proj = lambda: np.dot(
