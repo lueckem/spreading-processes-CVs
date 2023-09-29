@@ -248,7 +248,7 @@ def plot_x_levelset(
     if layout == "kamada kawai":
         pos = nx.kamada_kawai_layout(network)
     else:
-        pos = nx.spring_layout(network, seed=100)
+        pos = nx.spring_layout(network, seed=100, k=0.09)
 
     if other_idx is None:
         other_idx = -1

@@ -93,7 +93,7 @@ def plot_mmd():
     mmd_full = np.load("data/mmd_validate_full.npy")
     t = np.load("data/data_validate.npz")["t"]
 
-    fig, axes = plt.subplots(2, 1, figsize=(6, 6), sharex=True)
+    fig, axes = plt.subplots(2, 1, figsize=(3.5, 6), sharex=True)
     plot_validation_mmd(t, mmd, axes[0], r"MMD$_\varphi$")
     plot_validation_mmd(t, mmd_full, axes[1], r"MMD")
 
