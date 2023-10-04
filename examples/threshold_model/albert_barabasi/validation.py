@@ -40,7 +40,7 @@ def build_level_sets():
 
 def validate_mmd():
     print("Validating...")
-    t_max = 30
+    t_max = 150
     num_samples = 1000
     num_timesteps = 100
 
