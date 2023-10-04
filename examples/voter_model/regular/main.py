@@ -5,9 +5,9 @@ import time
 
 
 def main():
-    # run_method()  # run the method, takes ~15 minutes on 16-core CPU
+    run_method()  # run the method, takes ~15 minutes on 16-core CPU
     plot()  # plot results
-    # validate()  # run and plot validation
+    validate()  # run and plot validation
 
 
 def run_method():
