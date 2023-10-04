@@ -12,7 +12,7 @@ def plot_tm():
 
     xi = np.load("data/xi.npy")
 
-    fig = plt.figure(figsize=(4, 2.5))
+    fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot(projection="3d")
 
     # scale_x = 1.5
@@ -24,7 +24,6 @@ def plot_tm():
     ax.set_xlabel(r"$\varphi_1$", labelpad=-13)
     ax.set_ylabel(r"$\varphi_2$", labelpad=-13)
     ax.set_zlabel(r"$\varphi_3$", labelpad=-16)
-    # ax.set_aspect('equal')
 
     ax.set_yticklabels([])
     ax.set_xticklabels([])
@@ -38,9 +37,10 @@ def plot_tm():
     # )
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
+    # ax.view_init(16, -115, 0)
     ax.view_init(27, -126, 0)
 
-    layout = TightLayoutEngine(pad=-0.4)
+    layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
     fig.subplots_adjust(right=1.05)
 
