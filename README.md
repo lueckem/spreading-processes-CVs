@@ -1,6 +1,6 @@
-# Interpretable Collective Variables of the noisy Voter Model
+# Learning Interpretable Collective Variables for Spreading Processes on Networks
 
-This repository contains the code and numerical examples presented in the preprint "[Learning Interpretable Collective Variables of the Noisy Voter Model](https://arxiv.org/abs/2307.03491)".
+This repository contains the code and numerical examples presented in the preprint "[Learning Interpretable Collective Variables for Spreading Processes on Networks](https://arxiv.org/abs/2307.03491)".
 
 To run the examples, first download the repository and install the needed Python packages via the command
 ```
@@ -12,7 +12,6 @@ After installing `Poetry`, run the command
 poetry install
 ```
 in the package directory.
-The scripts for the three examples are 
-- `examples/stochastic_block_model/main.py`
-- `examples/ring/main.py`
-- `examples/albert_barabasi/main.py`
+
+The scripts to run the examples can be found in the `examples` directory.
+For instance, run `examples/voter_model/stochastic_block_model/main.py` to reproduce Example 1 of the main text.
