@@ -55,7 +55,7 @@ def sample_anchors_and_cnvm():
         params.network, params.num_opinions, num_anchor_points, 5
     )
     x_anchor = ct.integrate_anchor_points(
-        x_anchor, params, lag_time
+        x_anchor, params, lag_time / 10
     )  # integrate shortly to get rid of instable states
     print("Simulating voter model...")
     x_samples = sample_cnvm(x_anchor, num_samples, lag_time, params)
