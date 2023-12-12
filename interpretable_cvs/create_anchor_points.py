@@ -171,7 +171,9 @@ def create_anchor_points_local_clusters(
 
         while True:
             # iterate through seeds and propagate opinions
-            for m in range(num_opinions):
+            opinions = np.array(range(num_opinions))
+            np.random.shuffle(opinions)
+            for m in opinions:
                 # if counts are reached, there is nothing to do
                 if counts_reached[m]:
                     continue
