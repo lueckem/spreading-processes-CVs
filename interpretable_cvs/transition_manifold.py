@@ -49,6 +49,9 @@ class TransitionManifold:
         """
         epsilon = (bandwidth_diffusion_map)^2
         """
+        if self.distance_matrix is None:
+            raise RuntimeError("No distance matrix available. Call the fit method first!")
+
         return np.mean(np.exp(-(self.distance_matrix ** 2) / epsilon))
 
 

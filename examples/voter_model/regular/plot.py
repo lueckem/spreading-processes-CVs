@@ -35,7 +35,7 @@ def plot_tm():
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
     # ax.view_init(16, -115, 0)
-    ax.view_init(27, -126, 0)
+    ax.view_init(22, -19, 0)
 
     layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
@@ -43,4 +43,37 @@ def plot_tm():
 
     # plt.tight_layout()
     fig.savefig("plots/plot_tm.pdf")
-    # plt.show()
+    plt.show()
+
+
+def plot_dimension_estimation():
+    data = np.load("data/avg_sim.npz")
+    s = data["s"]
+    epsilons = data["epsilons"]
+    dist_mat = np.load("data/dist_mat.npy")
+
+    derivative = _central_differences(np.log(epsilons), np.log(s))
+
+    fig = plt.figure(figsize=(3.5, 3))
+    ax = fig.add_subplot()
+    ax.loglog(epsilons, s, label=r"$S(\varepsilon)$")
+    ax.loglog(epsilons, derivative, label=r"$\frac{d \log S(\varepsilon)}{d \log \varepsilon}$")
+    ax.grid()
+    ax.legend()
+    ax.set_ylim((1 / dist_mat.shape[0] / 2, np.max(derivative) * 2))
+
+    fig.savefig("plots/dimension_estimation.pdf")
+    plt.show()
+
+
+def _central_differences(x: np.ndarray, y: np.ndarray) -> np.ndarray:
+    """
+    Compute dy/dx via central differences.
+    """
+    out = np.zeros(len(x))
+    for i in range(len(x)):
+        upper_idx = min(i + 1, len(x) - 1)
+        lower_idx = max(i - 1, 0)
+        out[i] = (y[upper_idx] - y[lower_idx]) / (x[upper_idx] + x[lower_idx])
+    return out
+

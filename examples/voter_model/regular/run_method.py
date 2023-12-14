@@ -68,13 +68,31 @@ def approximate_tm():
     x_samples = np.load("data/x_data.npz")["x_samples"]
 
     sigma = (params.num_agents / 2) ** 0.5
-    d = 4
+    d = 10
 
-    trans_manifold = TransitionManifold(sigma, 1, d)
+    trans_manifold = TransitionManifold(sigma, 0.015 ** 0.5, d)
     print("Approximating transition manifold...")
     xi = trans_manifold.fit(x_samples)
 
+    np.save("data/dist_mat", trans_manifold.distance_matrix)
     np.save("data/xi", xi)
+
+
+def estimate_dimension():
+    params = load_params("data/params.pkl")
+    dist_mat = np.load("data/dist_mat.npy")
+    sigma = (params.num_agents / 2) ** 0.5
+
+    trans_manifold = TransitionManifold(sigma, 1)
+    trans_manifold.distance_matrix = dist_mat
+
+    print("Estimating dimension...")
+    epsilons = np.logspace(-6, 2, 101)
+    s = []
+    for epsilon in epsilons:
+        s.append(trans_manifold.average_kernel_matrix(epsilon))
+
+    np.savez_compressed("data/avg_sim", s=np.array(s), epsilons=epsilons)
 
 
 def linear_regression():
