@@ -14,6 +14,7 @@ class TransitionManifold:
         self.bandwidth_diffusion_map = bandwidth_diffusion_map
         self.dimension = dimension
         self.eigenvalues = None
+        self.distance_matrix = None
 
     def fit(self, x_samples: np.ndarray):
         """
@@ -29,17 +30,26 @@ class TransitionManifold:
             Array containing the coordinates of each anchor point in diffusion space.
             Shape = (num_anchor_points, dimension).
         """
-        distance_matrix, _ = _numba_dist_matrix_gaussian_kernel(
+        self.distance_matrix, _ = _numba_dist_matrix_gaussian_kernel(
             x_samples, self.bandwidth_transitions
         )
-        return self._calc_diffusion_map(distance_matrix)
+        return self._calc_diffusion_map()
 
-    def _calc_diffusion_map(self, distance_matrix: np.ndarray):
+    def _calc_diffusion_map(self):
+        if self.distance_matrix is None:
+            raise RuntimeError("No distance matrix available. Call the fit method first!")
+
         eigenvalues, eigenvectors = calc_diffusion_maps(
-            distance_matrix, self.dimension, self.bandwidth_diffusion_map
+            self.distance_matrix, self.dimension, self.bandwidth_diffusion_map
         )
         self.eigenvalues = eigenvalues
         return eigenvectors.real[:, 1:] * eigenvalues.real[np.newaxis, 1:]
+
+    def average_kernel_matrix(self, epsilon) -> float:
+        """
+        epsilon = (bandwidth_diffusion_map)^2
+        """
+        return np.mean(np.exp(-(self.distance_matrix ** 2) / epsilon))
 
 
 @njit(parallel=True)
