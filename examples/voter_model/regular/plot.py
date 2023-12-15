@@ -5,9 +5,13 @@ from matplotlib.layout_engine import TightLayoutEngine
 from sponet import load_params
 import networkx as nx
 
+
 def plot_tm():
     plt.rcParams["font.size"] = 13
     xi = np.load("data/xi.npy")
+    data = np.load("data/tm_info.npz")
+    eigenvalues = data["eigenvals"]
+
 
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot(projection="3d")
@@ -16,7 +20,8 @@ def plot_tm():
     # scale_y = 1.5
     # scale_z = 1
 
-    indices = [0, 4,5]
+    indices = [0, 4, 5]
+    print(eigenvalues[1:10].real)
 
     ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=-xi[:, 0])
 
@@ -49,12 +54,11 @@ def plot_tm():
 
 
 def plot_dimension_estimation():
-    data = np.load("data/avg_sim.npz")
+    data = np.load("data/tm_info.npz")
     s = data["s"]
     epsilons = data["epsilons"]
-    dist_mat = np.load("data/dist_mat.npy")
-
-    derivative = _central_differences(np.log(epsilons), np.log(s))
+    derivative = data["derivative"]
+    dist_mat = data["dist_mat"]
 
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot()
@@ -66,18 +70,6 @@ def plot_dimension_estimation():
 
     fig.savefig("plots/dimension_estimation.pdf")
     plt.show()
-
-
-def _central_differences(x: np.ndarray, y: np.ndarray) -> np.ndarray:
-    """
-    Compute dy/dx via central differences.
-    """
-    out = np.zeros(len(x))
-    for i in range(len(x)):
-        upper_idx = min(i + 1, len(x) - 1)
-        lower_idx = max(i - 1, 0)
-        out[i] = (y[upper_idx] - y[lower_idx]) / (x[upper_idx] - x[lower_idx])
-    return out
 
 
 def plot_cv():

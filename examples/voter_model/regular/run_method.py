@@ -58,7 +58,7 @@ def sample_anchors_and_cnvm():
         x_anchor, params, lag_time / 10
     )  # integrate shortly to get rid of instable states
     print("Simulating voter model...")
-    x_samples = sample_cnvm(x_anchor, num_samples, lag_time, params)
+    x_samples = sample_cnvm(x_anchor, num_samples, lag_time, params, n_jobs=5)
 
     np.savez_compressed("data/x_data", x_anchor=x_anchor, x_samples=x_samples)
 
@@ -69,32 +69,23 @@ def approximate_tm():
 
     sigma = (params.num_agents / 2) ** 0.5
     d = 10
+    trans_manifold = TransitionManifold(sigma, dimension=d)
 
-    trans_manifold = TransitionManifold(sigma, 0.015 ** 0.5, d)
-    dist_mat = np.load("data/dist_mat.npy")
-    trans_manifold.distance_matrix = dist_mat
     print("Approximating transition manifold...")
-    xi = trans_manifold.fit(x_samples)
+    xi = trans_manifold.fit(x_samples, optimize_bandwidth=True)
+    epsilons, s, derivative = trans_manifold.optimize_bandwidth_diffusion_maps()
 
-    np.save("data/dist_mat", trans_manifold.distance_matrix)
     np.save("data/xi", xi)
-
-
-def estimate_dimension():
-    params = load_params("data/params.pkl")
-    dist_mat = np.load("data/dist_mat.npy")
-    sigma = (params.num_agents / 2) ** 0.5
-
-    trans_manifold = TransitionManifold(sigma, 1)
-    trans_manifold.distance_matrix = dist_mat
-
-    print("Estimating dimension...")
-    epsilons = np.logspace(-6, 2, 101)
-    s = []
-    for epsilon in epsilons:
-        s.append(trans_manifold.average_kernel_matrix(epsilon))
-
-    np.savez_compressed("data/avg_sim", s=np.array(s), epsilons=epsilons)
+    np.savez_compressed(
+        "data/tm_info",
+        s=s,
+        epsilons=epsilons,
+        derivative=derivative,
+        dist_mat=trans_manifold.distance_matrix,
+        eigenvals=trans_manifold.eigenvalues,
+        dim_estimate=trans_manifold.dimension_estimate,
+        sigma=sigma
+    )
 
 
 def linear_regression():
