@@ -7,7 +7,6 @@ import networkx as nx
 
 def plot_tm():
     plt.rcParams["font.size"] = 13
-
     xi = np.load("data/xi.npy")
 
     fig = plt.figure(figsize=(3.5, 3))
@@ -17,17 +16,17 @@ def plot_tm():
     # scale_y = 1.5
     # scale_z = 1
 
-    indices = [0, 1, 2]
+    indices = [0, 4,5]
 
     ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=-xi[:, 0])
 
-    ax.set_xlabel(rf"$\varphi_{indices[0] + 1}$", labelpad=-13)
-    ax.set_ylabel(rf"$\varphi_{indices[1] + 1}$", labelpad=-13)
-    ax.set_zlabel(rf"$\varphi_{indices[2] + 1}$", labelpad=-16)
+    # ax.set_xlabel(rf"$\varphi_{indices[0] + 1}$", labelpad=-13)
+    # ax.set_ylabel(rf"$\varphi_{indices[1] + 1}$", labelpad=-13)
+    # ax.set_zlabel(rf"$\varphi_{indices[2] + 1}$", labelpad=-16)
 
-    ax.set_yticklabels([])
-    ax.set_xticklabels([])
-    ax.set_zticklabels([])
+    # ax.set_yticklabels([])
+    # ax.set_xticklabels([])
+    # ax.set_zticklabels([])
 
     custom_lim = (np.min(xi[:, 0]), np.max(xi[:, 0]))
     plt.setp(ax, xlim=custom_lim, ylim=custom_lim, zlim=custom_lim)
@@ -38,11 +37,11 @@ def plot_tm():
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
     # ax.view_init(16, -115, 0)
-    ax.view_init(23, 153, 0)
+    ax.view_init(23, 50, 0)
 
-    layout = TightLayoutEngine(pad=-1.2)
+    layout = TightLayoutEngine()
     layout.execute(fig)
-    fig.subplots_adjust(right=1.05)
+    # fig.subplots_adjust(right=1.05)
 
     # plt.tight_layout()
     fig.savefig("plots/plot_tm.pdf")
