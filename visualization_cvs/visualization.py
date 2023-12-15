@@ -48,7 +48,7 @@ def create_figure_from_network(network: nx.Graph, x: np.ndarray):
 def calc_colors(x, network):
     color_options = ["shares",
                      "weighted shares",
-                     # "interfaces",
+                     "interfaces",
                      # "cluster",
                      # "custom"
                      ]
@@ -60,8 +60,8 @@ def calc_colors(x, network):
     counts = cv.OpinionShares(3, normalize=True, weights=degree_sequence)(x)
     colors["weighted shares"] = counts[:, 0]
 
-    # counts = cv.Interfaces(network, True)(x)
-    # colors["interfaces"] = counts[:, 0]
+    counts = cv.Interfaces(network, True)(x)
+    colors["interfaces"] = counts[:, 0]
 
     # weights = calc_weights_biggest_cluster(network)
     # counts = cv.OpinionShares(2, True, weights)(x)

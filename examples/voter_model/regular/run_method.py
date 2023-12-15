@@ -46,8 +46,8 @@ def setup_params():
 
 def sample_anchors_and_cnvm():
     params = load_params("data/params.pkl")
-    num_samples = 100
-    num_anchor_points = 1000
+    num_samples = 200
+    num_anchor_points = 2000
     lag_time = 4
 
     print("Sampling anchor points...")
@@ -71,6 +71,8 @@ def approximate_tm():
     d = 10
 
     trans_manifold = TransitionManifold(sigma, 0.015 ** 0.5, d)
+    dist_mat = np.load("data/dist_mat.npy")
+    trans_manifold.distance_matrix = dist_mat
     print("Approximating transition manifold...")
     xi = trans_manifold.fit(x_samples)
 
@@ -96,9 +98,11 @@ def estimate_dimension():
 
 
 def linear_regression():
-    num_coordinates = 1
+    coordinates = [0, 4, 5]
+    num_coordinates = len(coordinates)
+
     xi = np.load("data/xi.npy")
-    xi = xi[:, :num_coordinates]
+    xi = xi[:, coordinates]
     x = np.load("data/x_data.npz")["x_anchor"]
     params = load_params("data/params.pkl")
     network = params.network

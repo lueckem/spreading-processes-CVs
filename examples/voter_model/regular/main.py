@@ -24,7 +24,7 @@ def run_method():
     # estimate_dimension()
 
     """ apply linear regression """
-    # linear_regression()  # this creates the data file cv_optim.npz
+    linear_regression()  # this creates the data file cv_optim.npz
 
     end = time.time()
     print(f"Took {end - start} seconds.")
@@ -32,7 +32,8 @@ def run_method():
 
 def plot():
     # plot_tm()  # plot of transition manifold, creates file plot_tm
-    plot_dimension_estimation()
+    # plot_dimension_estimation()
+    plot_cv()
 
 
 def validate():

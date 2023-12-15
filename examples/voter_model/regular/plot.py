@@ -2,7 +2,8 @@ from matplotlib import pyplot as plt
 import numpy as np
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 from matplotlib.layout_engine import TightLayoutEngine
-
+from sponet import load_params
+import networkx as nx
 
 def plot_tm():
     plt.rcParams["font.size"] = 13
@@ -16,11 +17,13 @@ def plot_tm():
     # scale_y = 1.5
     # scale_z = 1
 
-    ax.scatter(xi[:, 0], xi[:, 1], xi[:, 2], c=-xi[:, 0])
+    indices = [0, 1, 2]
 
-    ax.set_xlabel(r"$\varphi_1$", labelpad=-13)
-    ax.set_ylabel(r"$\varphi_2$", labelpad=-13)
-    ax.set_zlabel(r"$\varphi_3$", labelpad=-16)
+    ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=-xi[:, 0])
+
+    ax.set_xlabel(rf"$\varphi_{indices[0] + 1}$", labelpad=-13)
+    ax.set_ylabel(rf"$\varphi_{indices[1] + 1}$", labelpad=-13)
+    ax.set_zlabel(rf"$\varphi_{indices[2] + 1}$", labelpad=-16)
 
     ax.set_yticklabels([])
     ax.set_xticklabels([])
@@ -35,7 +38,7 @@ def plot_tm():
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
     # ax.view_init(16, -115, 0)
-    ax.view_init(22, -19, 0)
+    ax.view_init(23, 153, 0)
 
     layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
@@ -74,6 +77,43 @@ def _central_differences(x: np.ndarray, y: np.ndarray) -> np.ndarray:
     for i in range(len(x)):
         upper_idx = min(i + 1, len(x) - 1)
         lower_idx = max(i - 1, 0)
-        out[i] = (y[upper_idx] - y[lower_idx]) / (x[upper_idx] + x[lower_idx])
+        out[i] = (y[upper_idx] - y[lower_idx]) / (x[upper_idx] - x[lower_idx])
     return out
 
+
+def plot_cv():
+    coordinates = [0, 4, 5]
+
+    xi = np.load("data/xi.npy")
+    params = load_params("data/params.pkl")
+    network = params.network
+    pos = nx.spring_layout(network, seed=100, k=0.09)
+    alphas = np.load("data/cv_optim.npz")["alphas"]
+    xi_fit = np.load("data/cv_optim.npz")["xi_fit"]
+
+    # xi /= np.max(np.abs(xi))
+    # colors /= np.max(np.abs(colors))
+    # v_min, v_max = -1, 1
+
+    fig, axes = plt.subplots(nrows=3, ncols=2, figsize=(6, 6))
+    left_axs = [axes[0, 0], axes[1, 0], axes[2, 0]]
+    right_axs = [axes[0, 1], axes[1, 1], axes[2, 1]]
+
+    for i in range(3):
+        ax = left_axs[i]
+        ax.plot(xi[:, coordinates[i]], xi_fit[:, i], "x")
+
+    for i in range(3):
+        ax = right_axs[i]
+        this_alphas = alphas[:, i]
+        img = nx.draw_networkx_nodes(
+            network,
+            pos=pos,
+            ax=ax,
+            node_color=this_alphas,
+            node_size=50,
+        )
+        nx.draw_networkx_edges(network, pos, ax=ax)
+        fig.colorbar(img, ax=ax)
+
+    plt.show()

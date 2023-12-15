@@ -30,9 +30,10 @@ class TransitionManifold:
             Array containing the coordinates of each anchor point in diffusion space.
             Shape = (num_anchor_points, dimension).
         """
-        self.distance_matrix, _ = _numba_dist_matrix_gaussian_kernel(
-            x_samples, self.bandwidth_transitions
-        )
+        if self.distance_matrix is None:
+            self.distance_matrix, _ = _numba_dist_matrix_gaussian_kernel(
+                x_samples, self.bandwidth_transitions
+            )
         return self._calc_diffusion_map()
 
     def _calc_diffusion_map(self):
