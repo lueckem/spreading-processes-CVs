@@ -61,6 +61,7 @@ class TransitionManifold:
         s = []
         for epsilon in epsilons:
             s.append(self.average_kernel_matrix(epsilon))
+        s = np.array(s)
 
         derivative = _central_differences(np.log(epsilons), np.log(s))
         optim_idx = np.argmax(derivative)
