@@ -11,7 +11,7 @@ def plot_tm():
     xi = np.load("data/xi.npy")
     data = np.load("data/tm_info.npz")
     eigenvalues = data["eigenvals"]
-
+    eigenvecs = data["eigenvecs"]
 
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot(projection="3d")
@@ -21,7 +21,11 @@ def plot_tm():
     # scale_z = 1
 
     indices = [0, 4, 5]
-    print(eigenvalues[1:10].real)
+    print(eigenvalues[1:].real)
+    print(np.max(np.abs(eigenvecs.real), axis=0)[1:])
+    print(np.max(np.abs(xi), axis=0))
+    new_xi = eigenvecs.real[:, 1:] * eigenvalues.real[np.newaxis, 1:]
+    print(np.max(np.abs(new_xi), axis=0))
 
     ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=-xi[:, 0])
 

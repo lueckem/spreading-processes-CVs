@@ -83,6 +83,7 @@ def approximate_tm():
         derivative=derivative,
         dist_mat=trans_manifold.distance_matrix,
         eigenvals=trans_manifold.eigenvalues,
+        eigenvecs=trans_manifold.eigenvectors,
         dim_estimate=trans_manifold.dimension_estimate,
         sigma=sigma
     )

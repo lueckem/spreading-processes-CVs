@@ -14,6 +14,7 @@ class TransitionManifold:
         self.bandwidth_diffusion_map = bandwidth_diffusion_map
         self.num_coordinates = dimension
         self.eigenvalues = None
+        self.eigenvectors = None
         self.distance_matrix = None
         self.dimension_estimate = None
 
@@ -75,11 +76,10 @@ class TransitionManifold:
         if self.distance_matrix is None:
             raise RuntimeError("No distance matrix available. Call the set_distance_matrix method first!")
 
-        eigenvalues, eigenvectors = calc_diffusion_maps(
+        self.eigenvalues, self.eigenvectors = calc_diffusion_maps(
             self.distance_matrix, self.num_coordinates, self.bandwidth_diffusion_map
         )
-        self.eigenvalues = eigenvalues
-        return eigenvectors.real[:, 1:] * eigenvalues.real[np.newaxis, 1:]
+        return self.eigenvectors.real[:, 1:] * self.eigenvalues.real[np.newaxis, 1:]
 
     def average_kernel_matrix(self, epsilon) -> float:
         """

@@ -31,7 +31,7 @@ def run_method():
 
 def plot():
     plot_tm()  # plot of transition manifold, creates file plot_tm
-    plot_dimension_estimation()
+    # plot_dimension_estimation()
     # plot_cv()
 
 
