@@ -6,8 +6,8 @@ import time
 
 def main():
     # run_method()  # run the method, takes ~15 minutes on 16-core CPU
-    plot()  # plot results
-    # validate()  # run and plot validation
+    # plot()  # plot results
+    validate()  # run and plot validation
 
 
 def run_method():
@@ -37,11 +37,12 @@ def plot():
 
 def validate():
     # construct and plot three states x
-    build_level_sets()
-    plot_level_set()
+    # build_level_sets()
+    build_level_sets_2()
+    # plot_level_set()
 
     # validate their MMD and plot results
-    validate_mmd()
+    # validate_mmd()
     plot_mmd()
 
 
