@@ -27,6 +27,7 @@ def plot3d():
 
     plt.tight_layout()
     plt.savefig("plots/plot_tm.pdf")
+    plt.show()
 
 
 def plot_network():
@@ -82,6 +83,25 @@ def plot_network():
     )
     plt.tight_layout()
     plt.savefig("plots/plot_network.pdf")
+
+
+def plot_dimension_estimation():
+    data = np.load("data/tm_info.npz")
+    s = data["s"]
+    epsilons = data["epsilons"]
+    derivative = data["derivative"]
+    dist_mat = data["dist_mat"]
+
+    fig = plt.figure(figsize=(3.5, 3))
+    ax = fig.add_subplot()
+    ax.loglog(epsilons, s, label=r"$S(\varepsilon)$")
+    ax.loglog(epsilons, derivative, label=r"$\frac{d \log S(\varepsilon)}{d \log \varepsilon}$")
+    ax.grid()
+    ax.legend()
+    ax.set_ylim((1 / dist_mat.shape[0] / 2, np.max(derivative) * 2))
+
+    fig.savefig("plots/dimension_estimation.pdf")
+    plt.show()
 
 
 def plot_cv():
