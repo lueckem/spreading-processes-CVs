@@ -72,7 +72,7 @@ def approximate_tm():
     data = np.load("data/tm_info.npz")
     dist_mat = data["dist_mat"]
     trans_manifold.distance_matrix = dist_mat
-    trans_manifold.bandwidth_diffusion_map = 0.01 ** 0.5
+    trans_manifold.bandwidth_diffusion_map = 0.001 ** 0.5
     xi = trans_manifold.calc_diffusion_map()
 
     print("Approximating transition manifold...")

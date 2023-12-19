@@ -4,12 +4,17 @@ from matplotlib.layout_engine import TightLayoutEngine
 from mpl_toolkits.mplot3d.axes3d import Axes3D
 import numpy as np
 from sponet import load_params
+from sponet.collective_variables import OpinionShares
 
 
 def plot_tm():
     plt.rcParams["font.size"] = 13
 
     xi = np.load("data/xi.npy")
+    x = np.load("data/x_data.npz")["x_anchor"]
+    params = load_params("data/params.pkl")
+    network = params.network
+    weights = np.array([d for _, d in network.degree()])
 
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot(projection="3d")
@@ -17,8 +22,8 @@ def plot_tm():
     # scale_x = 1.5
     # scale_y = 1.5
     # scale_z = 1
-
-    ax.scatter(xi[:, 0], xi[:, 1], xi[:, 2], c=-xi[:, 0])
+    cv = OpinionShares(2, True, weights=weights)
+    ax.scatter(xi[:, 0], xi[:, 1], xi[:, 2], c=cv(x)[:, 0])
 
     ax.set_xlabel(r"$\varphi_1$", labelpad=-13)
     ax.set_ylabel(r"$\varphi_2$", labelpad=-13)
@@ -37,11 +42,11 @@ def plot_tm():
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
     # ax.view_init(16, -115, 0)
-    ax.view_init(27, -126, 0)
+    ax.view_init(6, -29, 0)
 
     layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
-    fig.subplots_adjust(right=1.05)
+    fig.subplots_adjust(right=0.95)
 
     # plt.tight_layout()
     fig.savefig("plots/plot_tm.pdf")
