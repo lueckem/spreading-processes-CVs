@@ -21,7 +21,7 @@ def plot_tm():
     # scale_y = 1.5
     # scale_z = 1
 
-    indices = [0, 4, 5]
+    indices = [0, 1, 5]
     print(eigenvalues[1:].real)
     print(np.max(np.abs(eigenvecs.real), axis=0)[1:])
     print(np.max(np.abs(xi), axis=0))

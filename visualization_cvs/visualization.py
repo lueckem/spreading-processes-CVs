@@ -175,7 +175,7 @@ def create_app(xi: np.ndarray, x_anchor: np.ndarray, network: nx.Graph):
 
 
 def main():
-    file_path = "C:/Users/Marvin/PycharmProjects/network-dynamics-CVs/examples/voter_model/albert_barabasi/data/"
+    file_path = "C:/Users/Marvin/PycharmProjects/network-dynamics-CVs/examples/voter_model/regular/data/"
     xi = np.load(file_path + "xi.npy")
     x_anchor = np.load(file_path + "x_data.npz")["x_anchor"]
     params = load_params(file_path + "params.pkl")

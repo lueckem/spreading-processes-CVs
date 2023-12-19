@@ -17,7 +17,7 @@ def run_method():
     # setup_params()  # this creates the data file params.pkl
 
     """ sample the anchor points and run voter model simulations starting at the anchor points """
-    # sample_anchors_and_cnvm()  # this creates the data file x_data.npz
+    sample_anchors_and_cnvm()  # this creates the data file x_data.npz
 
     """ approximate the transition manifold with a kernel-based algorithm """
     approximate_tm()  # this creates the data file xi.npz
@@ -30,8 +30,8 @@ def run_method():
 
 
 def plot():
-    # plot_tm()  # plot of transition manifold, creates file plot_tm
-    plot_dimension_estimation()
+    plot_tm()  # plot of transition manifold, creates file plot_tm
+    # plot_dimension_estimation()
     # plot_cv()
 
 

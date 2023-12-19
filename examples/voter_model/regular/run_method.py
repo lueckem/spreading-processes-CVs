@@ -48,17 +48,17 @@ def sample_anchors_and_cnvm():
     params = load_params("data/params.pkl")
     num_samples = 200
     num_anchor_points = 2000
-    lag_time = 4
+    lag_time = 24
 
     print("Sampling anchor points...")
     x_anchor = ct.create_anchor_points_local_clusters(
         params.network, params.num_opinions, num_anchor_points, 5
     )
     x_anchor = ct.integrate_anchor_points(
-        x_anchor, params, lag_time / 10
+        x_anchor, params, lag_time / 40
     )  # integrate shortly to get rid of instable states
     print("Simulating voter model...")
-    x_samples = sample_cnvm(x_anchor, num_samples, lag_time, params, n_jobs=5)
+    x_samples = sample_cnvm(x_anchor, num_samples, lag_time, params, n_jobs=10)
 
     np.savez_compressed("data/x_data", x_anchor=x_anchor, x_samples=x_samples)
 
