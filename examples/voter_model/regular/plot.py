@@ -5,11 +5,13 @@ from matplotlib.layout_engine import TightLayoutEngine
 from sponet import load_params
 import networkx as nx
 import scipy.io as scio
+from sponet.collective_variables import OpinionShares
 
 
 def plot_tm():
     plt.rcParams["font.size"] = 13
     xi = np.load("data/xi.npy")
+    x = np.load("data/x_data.npz")["x_anchor"]
     data = np.load("data/tm_info.npz")
     eigenvalues = data["eigenvals"]
     eigenvecs = data["eigenvecs"]
@@ -17,28 +19,25 @@ def plot_tm():
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot(projection="3d")
 
-    # scale_x = 1.5
-    # scale_y = 1.5
-    # scale_z = 1
-
-    indices = [0, 1, 5]
+    indices = [0, 1, 2]
     print(eigenvalues[1:].real)
     print(np.max(np.abs(eigenvecs.real), axis=0)[1:])
     print(np.max(np.abs(xi), axis=0))
     new_xi = eigenvecs.real[:, 1:] * eigenvalues.real[np.newaxis, 1:]
     print(np.max(np.abs(new_xi), axis=0))
 
-    ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=-xi[:, 0])
+    cv = OpinionShares(2, True)
+    ax.scatter(xi[:, indices[0]], xi[:, indices[1]], xi[:, indices[2]], c=cv(x)[:, 0])
 
-    # ax.set_xlabel(rf"$\varphi_{indices[0] + 1}$", labelpad=-13)
-    # ax.set_ylabel(rf"$\varphi_{indices[1] + 1}$", labelpad=-13)
-    # ax.set_zlabel(rf"$\varphi_{indices[2] + 1}$", labelpad=-16)
+    ax.set_xlabel(rf"$\varphi_{indices[0] + 1}$", labelpad=-13)
+    ax.set_ylabel(rf"$\varphi_{indices[1] + 1}$", labelpad=-13)
+    ax.set_zlabel(rf"$\varphi_{indices[2] + 1}$", labelpad=-16)
 
-    # ax.set_yticklabels([])
-    # ax.set_xticklabels([])
-    # ax.set_zticklabels([])
+    ax.set_yticklabels([])
+    ax.set_xticklabels([])
+    ax.set_zticklabels([])
 
-    custom_lim = (np.min(xi[:, 0]), np.max(xi[:, 0]))
+    custom_lim = (np.min(xi[:, indices]), np.max(xi[:, indices]))
     plt.setp(ax, xlim=custom_lim, ylim=custom_lim, zlim=custom_lim)
 
     # ax.get_proj = lambda: np.dot(
@@ -47,11 +46,11 @@ def plot_tm():
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
     # ax.view_init(16, -115, 0)
-    ax.view_init(23, 50, 0)
+    ax.view_init(14, -95, 0)
 
-    layout = TightLayoutEngine()
+    layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
-    # fig.subplots_adjust(right=1.05)
+    # fig.subplots_adjust(right=0.95)
 
     # plt.tight_layout()
     fig.savefig("plots/plot_tm.pdf")
