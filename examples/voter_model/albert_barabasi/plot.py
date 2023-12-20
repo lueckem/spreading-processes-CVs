@@ -5,6 +5,7 @@ from mpl_toolkits.mplot3d.axes3d import Axes3D
 import numpy as np
 from sponet import load_params
 from sponet.collective_variables import OpinionShares
+import scipy.io as scio
 
 
 def plot_tm():
@@ -112,6 +113,13 @@ def plot_dimension_estimation():
     epsilons = data["epsilons"]
     derivative = data["derivative"]
     dist_mat = data["dist_mat"]
+
+    optim_idx = np.argmax(derivative)
+    optim_epsilon = epsilons[optim_idx]
+    bandwidth_diffusion_map = optim_epsilon ** 0.5
+
+    mdict = {"d": dist_mat, "bandwidth": bandwidth_diffusion_map}
+    scio.savemat("data/dist_mat.mat", mdict, do_compression=True)
 
     fig = plt.figure(figsize=(3.5, 3))
     ax = fig.add_subplot()

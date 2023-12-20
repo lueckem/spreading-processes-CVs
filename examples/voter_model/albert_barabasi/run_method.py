@@ -63,20 +63,20 @@ def sample_anchors_and_cnvm():
 
 def approximate_tm():
     params = load_params("data/params.pkl")
-    # x_samples = np.load("data/x_data.npz")["x_samples"]
+    x_samples = np.load("data/x_data.npz")["x_samples"]
 
     sigma = (params.num_agents / 2) ** 0.5
     d = 10
     trans_manifold = TransitionManifold(sigma, dimension=d)
 
-    data = np.load("data/tm_info.npz")
-    dist_mat = data["dist_mat"]
-    trans_manifold.distance_matrix = dist_mat
-    trans_manifold.bandwidth_diffusion_map = 0.001 ** 0.5
-    xi = trans_manifold.calc_diffusion_map()
+    # data = np.load("data/tm_info.npz")
+    # dist_mat = data["dist_mat"]
+    # trans_manifold.distance_matrix = dist_mat
+    # trans_manifold.bandwidth_diffusion_map = 0.001 ** 0.5
+    # xi = trans_manifold.calc_diffusion_map()
 
     print("Approximating transition manifold...")
-    # xi = trans_manifold.fit(x_samples, optimize_bandwidth=True)
+    xi = trans_manifold.fit(x_samples, optimize_bandwidth=True)
     epsilons, s, derivative = trans_manifold.optimize_bandwidth_diffusion_maps()
 
     np.save("data/xi", xi)
