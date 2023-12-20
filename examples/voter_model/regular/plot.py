@@ -45,8 +45,7 @@ def plot_tm():
     # )
     # ax.text2D(-0.15, 0.85, "(a)", transform=ax.transAxes, fontsize=15)
 
-    # ax.view_init(16, -115, 0)
-    ax.view_init(14, -95, 0)
+    ax.view_init(27, -126, 0)
 
     layout = TightLayoutEngine(pad=-1.2)
     layout.execute(fig)
