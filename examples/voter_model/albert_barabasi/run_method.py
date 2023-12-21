@@ -68,7 +68,7 @@ def approximate_tm():
     sigma = (params.num_agents / 2) ** 0.5
     d = 3
 
-    trans_manifold = TransitionManifold(sigma, 1, d)
+    trans_manifold = TransitionManifold(sigma, 0.1, d)
     print("Approximating transition manifold...")
     xi = trans_manifold.fit(x_samples)
 
