@@ -85,7 +85,7 @@ def linear_regression():
 
     # no pre-weighting
     pen_vals = np.logspace(3, -2, 6)
-    alphas, colors = optimize_fused_lasso(x, xi, network, pen_vals)
+    alphas, colors = optimize_fused_lasso(x, xi, network, pen_vals, performance_threshold=0.999)
 
     np.savez("data/cv_optim.npz", alphas=alphas, xi_fit=colors)
 

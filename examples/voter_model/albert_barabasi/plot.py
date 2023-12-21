@@ -45,7 +45,6 @@ def plot_tm():
 
     # plt.tight_layout()
     fig.savefig("plots/plot_tm.pdf")
-    plt.show()
 
 
 def plot_cv():
